@@ -38,7 +38,6 @@ public class QuoteGeneratorServiceImpl implements QuoteGeneratorService{
         return  Flux.generate(()->0,(BiFunction<Integer,SynchronousSink<Quote>,Integer>)(index,sink)->{
           Quote updatedQuote = updateQuote(this.prices.get(index));
           sink.next(updatedQuote);
-            System.out.println(++index % this.prices.size());
           return ++index % this.prices.size();
         })
                 //Emit them with a specific period, therefore zip the Flux with a Flux.interval

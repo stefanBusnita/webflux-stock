@@ -1,5 +1,6 @@
 package com.stefan.webfluxstock.reactiveWeb;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RequestPredicates;
@@ -21,6 +22,7 @@ public class QuoteRouter {
      * @param handler
      * @return
      */
+    @Bean
     public RouterFunction<ServerResponse> router(QuoteHandler handler){
         return RouterFunctions.route(
                 RequestPredicates.GET("/quotes").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),handler::fetchQuotes)

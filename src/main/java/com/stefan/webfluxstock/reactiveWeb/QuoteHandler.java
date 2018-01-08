@@ -29,7 +29,7 @@ public class QuoteHandler {
      */
     public Mono<ServerResponse> fetchQuotes(ServerRequest request){
         int size = Integer.parseInt(request.queryParam("size").orElse("10"));
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(this.generatorService.fetchQuoteStream(Duration.ofMillis(100L)).take(10), Quote.class);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(this.generatorService.fetchQuoteStream(Duration.ofMillis(100L)).take(size), Quote.class);
     }
 
     /**
