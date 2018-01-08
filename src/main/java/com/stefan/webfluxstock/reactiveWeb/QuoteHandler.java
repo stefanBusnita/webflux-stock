@@ -22,8 +22,23 @@ public class QuoteHandler {
         this.generatorService = generatorService;
     }
 
+    /**
+     * Fetch some quotes
+     * @param request
+     * @return
+     */
     public Mono<ServerResponse> fetchQuotes(ServerRequest request){
         int size = Integer.parseInt(request.queryParam("size").orElse("10"));
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(this.generatorService.fetchQuoteStream(Duration.ofMillis(100L)).take(10), Quote.class);
+    }
+
+    /**
+     * Return a stream of quotes
+     * @param request
+     * @return
+     */
+    public Mono<ServerResponse> streamQuotes(ServerRequest request){
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_STREAM_JSON)
+                .body(this.generatorService.fetchQuoteStream(Duration.ofMillis(100L)), Quote.class);
     }
 }

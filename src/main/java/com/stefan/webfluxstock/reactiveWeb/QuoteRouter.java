@@ -14,9 +14,17 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 public class QuoteRouter {
 
 
+    /**
+     * Use functional composition and create the routes for
+     * returning quotes
+     * streaming quotes
+     * @param handler
+     * @return
+     */
     public RouterFunction<ServerResponse> router(QuoteHandler handler){
-        return RouterFunctions.route(RequestPredicates.GET("/quotes")
-                .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),handler::fetchQuotes);
+        return RouterFunctions.route(
+                RequestPredicates.GET("/quotes").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),handler::fetchQuotes)
+                .andRoute(RequestPredicates.GET("/quotes").and(RequestPredicates.accept(MediaType.APPLICATION_STREAM_JSON)), handler::streamQuotes);
     }
 
 }
