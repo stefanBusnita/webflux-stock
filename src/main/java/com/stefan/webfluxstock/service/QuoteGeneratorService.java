@@ -10,4 +10,5 @@ import java.time.Duration;
  */
 public interface QuoteGeneratorService {
    Flux<Quote> fetchQuoteStream(Duration period);
+   //TODO https://www.infoq.com/articles/reactor-by-example
 }
